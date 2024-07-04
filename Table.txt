@@ -1,0 +1,256 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 3,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    userRole: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const serviceSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    desc: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Shop',
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const riderSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 3,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    role: {
+      type: String,
+      default: true,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    userRole: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const shopSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 3,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    role: {
+      type: String,
+      default: true,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    userRole: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const customerSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      min: 3,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const orderSchema = new mongoose.Schema(
+  {
+    customerEmail: {
+      type: String,
+      required: true,
+    },
+    orderDesc: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    orderId: {
+      type: String, // Change type to String
+      unique: true,
+      required: true,
+      min: 10,
+      max: 10,
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+    payment: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    servicedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Shop',
+      // required: true,
+    },
+    acceptedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Rider',
+      // required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const Service =
+  mongoose.models.Service || mongoose.model("Service", serviceSchema);
+export const Rider = mongoose.models.Rider || mongoose.model("Rider", riderSchema);
+export const Shop = mongoose.models.Shop || mongoose.model("Shop", shopSchema);
+export const Customer = mongoose.models.Customer || mongoose.model("Customer", customerSchema);
+export const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
